@@ -1,0 +1,126 @@
+[gd_scene format=3 uid="uid://8m73s2j46g5q"]
+
+[ext_resource type="Script" uid="uid://8dvh7rpx5gu2" path="res://Scenes/character_controller.gd" id="1_cvnsp"]
+[ext_resource type="Texture2D" uid="uid://batfq1qof0oqx" path="res://Sprites/Anim_Robot_Walk1_v1.1_spritesheet.png" id="2_cvnsp"]
+[ext_resource type="AudioStream" uid="uid://bj52f3xjc7lp3" path="res://Sounds/background music.ogg" id="3_6t5aa"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_6t5aa"]
+radius = 16.0
+height = 56.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_cvnsp"]
+radius = 16.0
+height = 53.333336
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cvnsp"]
+atlas = ExtResource("2_cvnsp")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6t5aa"]
+atlas = ExtResource("2_cvnsp")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vgqql"]
+atlas = ExtResource("2_cvnsp")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fkybt"]
+atlas = ExtResource("2_cvnsp")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_x3wgy"]
+atlas = ExtResource("2_cvnsp")
+region = Rect2(0, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3smsa"]
+atlas = ExtResource("2_cvnsp")
+region = Rect2(32, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8erm5"]
+atlas = ExtResource("2_cvnsp")
+region = Rect2(64, 32, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_f1ek2"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cvnsp")
+}],
+"loop": true,
+"name": &"stand",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6t5aa")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vgqql")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fkybt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_x3wgy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3smsa")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8erm5")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 15.0
+}]
+
+[node name="Player" type="CharacterBody2D" unique_id=88665706]
+scale = Vector2(0.75, 0.75)
+script = ExtResource("1_cvnsp")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1128327853]
+shape = SubResource("CapsuleShape2D_6t5aa")
+
+[node name="Jump Buffering" type="Timer" parent="." unique_id=401800158]
+wait_time = 0.05
+
+[node name="Coyote Time" type="Timer" parent="." unique_id=820163717]
+wait_time = 0.05
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=575596097]
+offset = Vector2(0, -50)
+zoom = Vector2(1.25, 1.25)
+limit_left = -300
+limit_right = 1000000
+limit_bottom = 500
+
+[node name="Ladder Hitbox" type="Area2D" parent="." unique_id=1504982679]
+collision_layer = 4
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Ladder Hitbox" unique_id=127145303]
+shape = SubResource("CapsuleShape2D_cvnsp")
+debug_color = Color(0.16818789, 0.6441945, 0, 0.41960785)
+
+[node name="Damage Hitbox" type="Area2D" parent="." unique_id=2082173684]
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Damage Hitbox" unique_id=916329374]
+shape = SubResource("CapsuleShape2D_cvnsp")
+debug_color = Color(0.99999994, 0.01637035, 0.021757409, 0.41960785)
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=809962611]
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_f1ek2")
+animation = &"stand"
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=1290113853]
+stream = ExtResource("3_6t5aa")
+autoplay = true
+
+[connection signal="timeout" from="Jump Buffering" to="." method="_on_jump_buffering_timeout"]
+[connection signal="timeout" from="Coyote Time" to="." method="_on_coyote_time_timeout"]
+[connection signal="body_entered" from="Ladder Hitbox" to="." method="_on_ladder_hitbox_body_entered"]
+[connection signal="body_exited" from="Ladder Hitbox" to="." method="_on_ladder_hitbox_body_exited"]
+[connection signal="body_entered" from="Damage Hitbox" to="." method="_on_damage_hitbox_body_entered"]

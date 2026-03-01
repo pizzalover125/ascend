@@ -1,0 +1,19 @@
+[gd_scene format=3 uid="uid://7vcucnc4th1i"]
+
+[ext_resource type="Script" uid="uid://2r5m7by4u1l5" path="res://Scenes/checkpoint.gd" id="1_2cwi7"]
+[ext_resource type="Texture2D" uid="uid://bskj8lnde6ili" path="res://Sprites/New Piskel-1.png.png" id="1_lbcco"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_jkya8"]
+radius = 12.010412
+
+[node name="Checkpoint" type="Area2D" unique_id=920097520]
+script = ExtResource("1_2cwi7")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1162170331]
+scale = Vector2(2, 2)
+shape = SubResource("CircleShape2D_jkya8")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=2080984943]
+position = Vector2(-1, -7)
+scale = Vector2(2, 2)
+texture = ExtResource("1_lbcco")

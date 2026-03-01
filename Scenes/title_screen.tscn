@@ -1,0 +1,53 @@
+[gd_scene format=3 uid="uid://dogclgj7y21s3"]
+
+[ext_resource type="Texture2D" uid="uid://bas7n8q7oocft" path="res://Sprites/Sky.png" id="1_4gxqj"]
+[ext_resource type="Texture2D" uid="uid://cvlfyh1711age" path="res://Sprites/logo.png" id="1_p3fck"]
+[ext_resource type="Script" uid="uid://djoiccycj8ptb" path="res://Scenes/title_screen.gd" id="1_twnyg"]
+[ext_resource type="Texture2D" uid="uid://beobkxl2hmxkp" path="res://Sprites/start-button.png" id="2_4gxqj"]
+
+[node name="Node2D" type="Node2D" unique_id=1817977580]
+script = ExtResource("1_twnyg")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1835977249]
+position = Vector2(3, 12)
+scale = Vector2(3, 3)
+texture = ExtResource("1_4gxqj")
+
+[node name="TextureRect2" type="TextureRect" parent="." unique_id=852173395]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -495.0
+offset_top = -238.0
+offset_right = 529.0
+offset_bottom = 63.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_p3fck")
+metadata/_edit_use_anchors_ = true
+
+[node name="TextureButton" type="TextureButton" parent="." unique_id=853333065]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -58.0
+offset_top = 113.0
+offset_right = -18.0
+offset_bottom = 153.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(4, 4)
+action_mode = 0
+texture_normal = ExtResource("2_4gxqj")
+stretch_mode = 0
+flip_v = true
+metadata/_edit_use_anchors_ = true
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=1784198022]
+position = Vector2(15, 46)
+
+[connection signal="pressed" from="TextureButton" to="." method="_on_texture_button_pressed"]
